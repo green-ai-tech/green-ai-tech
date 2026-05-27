@@ -4,6 +4,8 @@ AI Engineer / LLM Application Developer
 
 Building EduAgent and StockAgent, focusing on RAG, Multi-Agent Systems and AI Applications.
 
+Portfolio: https://green-ai-tech.vercel.app/
+
 ## Projects
 
 ### EduAgent
@@ -24,7 +26,9 @@ Python, FastAPI, LangChain, LangGraph, PostgreSQL, Docker, Ollama, RAG.
 
 ## Website
 
-The portfolio website source lives in [`website`](./website).
+The portfolio website is deployed at https://green-ai-tech.vercel.app/.
+
+Source code lives in [`website`](./website).
 
 ```bash
 cd website

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
@@ -10,12 +11,15 @@ import {
   Database,
   GitBranch,
   GraduationCap,
+  Languages,
   Mail,
   Server,
   TrendingUp,
   Workflow,
   type LucideIcon,
 } from "lucide-react";
+
+type Language = "en" | "zh";
 
 const profile = {
   github: "https://github.com/green-ai-tech",
@@ -25,7 +29,7 @@ const profile = {
 const projects: Array<{
   name: string;
   icon: LucideIcon;
-  description: string;
+  description: Record<Language, string>;
   stack: string[];
   github: string;
   demo: string;
@@ -33,8 +37,10 @@ const projects: Array<{
   {
     name: "EduAgent",
     icon: GraduationCap,
-    description:
-      "An AI learning assistant for document-grounded tutoring, personalized study flows, and explainable lesson planning.",
+    description: {
+      en: "An AI learning assistant for document-grounded tutoring, personalized study flows, and explainable lesson planning.",
+      zh: "面向教育场景的 AI 学习助手，支持基于文档的辅导、个性化学习流程和可解释的课程规划。",
+    },
     stack: ["Python", "FastAPI", "LangChain", "RAG", "PostgreSQL"],
     github: "https://github.com/green-ai-tech/eduagent",
     demo: "https://green-ai-tech.github.io/eduagent",
@@ -42,8 +48,10 @@ const projects: Array<{
   {
     name: "StockAgent",
     icon: TrendingUp,
-    description:
-      "A market research agent for signal collection, RAG-assisted analysis, and multi-agent financial intelligence workflows.",
+    description: {
+      en: "A market research agent for signal collection, RAG-assisted analysis, and multi-agent financial intelligence workflows.",
+      zh: "面向市场研究的智能体，覆盖信号采集、RAG 辅助分析和多智能体金融研究工作流。",
+    },
     stack: ["Python", "LangGraph", "Docker", "Ollama", "RAG"],
     github: "https://github.com/green-ai-tech/stockagent",
     demo: "https://green-ai-tech.github.io/stockagent",
@@ -61,24 +69,122 @@ const skills: Array<{ name: string; icon: LucideIcon }> = [
   { name: "RAG", icon: Workflow },
 ];
 
+const content = {
+  en: {
+    nav: {
+      projects: "Projects",
+      skills: "Skills",
+      contact: "Contact",
+    },
+    languageToggle: "Switch to Chinese",
+    languageLabel: "中",
+    hero: {
+      role: "AI Engineer / LLM Application Developer",
+      intro:
+        "Building EduAgent and StockAgent, focusing on RAG, Multi-Agent Systems and AI Applications.",
+      projectsCta: "View Projects",
+      contactCta: "Contact",
+      stackTitle: "Agent Stack",
+      status: "Online",
+      stackItems: ["RAG Pipeline", "Multi-Agent Graph", "Vector Search"],
+    },
+    projects: {
+      eyebrow: "Projects",
+      title: "LLM applications built for real workflows",
+      description:
+        "Two focused AI products: one for education, one for financial research.",
+      demo: "Demo",
+    },
+    skills: {
+      eyebrow: "Skills",
+      title: "AI engineering stack",
+      description:
+        "Backend, orchestration, local models, retrieval, and deployment tools.",
+    },
+    contact: {
+      eyebrow: "Contact",
+      title: "Build AI applications with a product mindset.",
+      description:
+        "Open to LLM application development, RAG systems, and agentic workflow engineering.",
+      email: "Email",
+    },
+  },
+  zh: {
+    nav: {
+      projects: "项目",
+      skills: "技能",
+      contact: "联系",
+    },
+    languageToggle: "Switch to English",
+    languageLabel: "EN",
+    hero: {
+      role: "AI 工程师 / LLM 应用开发者",
+      intro: "正在构建 EduAgent 和 StockAgent，专注于 RAG、多智能体系统和 AI 应用落地。",
+      projectsCta: "查看项目",
+      contactCta: "联系我",
+      stackTitle: "智能体栈",
+      status: "在线",
+      stackItems: ["RAG 流程", "多智能体图", "向量检索"],
+    },
+    projects: {
+      eyebrow: "项目",
+      title: "面向真实工作流的 LLM 应用",
+      description: "两个聚焦明确的 AI 产品：一个面向教育，一个面向金融研究。",
+      demo: "演示",
+    },
+    skills: {
+      eyebrow: "技能",
+      title: "AI 工程技术栈",
+      description: "覆盖后端、编排、本地模型、检索增强和部署工具。",
+    },
+    contact: {
+      eyebrow: "联系",
+      title: "用产品化思维构建 AI 应用。",
+      description: "开放合作方向：LLM 应用开发、RAG 系统和智能体工作流工程。",
+      email: "邮箱",
+    },
+  },
+} as const;
+
+type SiteCopy = (typeof content)[Language];
+
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
   visible: { opacity: 1, y: 0 },
 };
 
 export default function Home() {
+  const [language, setLanguage] = useState<Language>("en");
+  const copy = content[language];
+
+  const toggleLanguage = () => {
+    setLanguage((current) => (current === "en" ? "zh" : "en"));
+  };
+
   return (
     <main className="min-h-screen overflow-hidden bg-[#050608] text-white">
-      <SiteHeader />
-      <HeroSection />
-      <ProjectSection />
-      <SkillsSection />
-      <ContactSection />
+      <SiteHeader
+        copy={copy}
+        language={language}
+        onLanguageToggle={toggleLanguage}
+      />
+      <HeroSection copy={copy} />
+      <ProjectSection copy={copy} language={language} />
+      <SkillsSection copy={copy} />
+      <ContactSection copy={copy} />
     </main>
   );
 }
 
-function SiteHeader() {
+function SiteHeader({
+  copy,
+  language,
+  onLanguageToggle,
+}: {
+  copy: SiteCopy;
+  language: Language;
+  onLanguageToggle: () => void;
+}) {
   return (
     <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-[#050608]/70 backdrop-blur-xl">
       <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-5 sm:px-6 lg:px-8">
@@ -90,31 +196,44 @@ function SiteHeader() {
         </a>
         <div className="hidden items-center gap-6 text-sm text-white/68 sm:flex">
           <a className="transition hover:text-white" href="#projects">
-            Projects
+            {copy.nav.projects}
           </a>
           <a className="transition hover:text-white" href="#skills">
-            Skills
+            {copy.nav.skills}
           </a>
           <a className="transition hover:text-white" href="#contact">
-            Contact
+            {copy.nav.contact}
           </a>
         </div>
-        <a
-          className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/[0.06] text-white/82 transition hover:border-emerald-300/40 hover:text-white"
-          href={profile.github}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="GitHub"
-          title="GitHub"
-        >
-          <GitBranch className="h-4 w-4" aria-hidden="true" />
-        </a>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={onLanguageToggle}
+            aria-label={copy.languageToggle}
+            aria-pressed={language === "zh"}
+            title={copy.languageToggle}
+            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.06] px-3 text-sm font-medium text-white/82 transition hover:border-emerald-300/40 hover:text-white"
+          >
+            <Languages className="h-4 w-4" aria-hidden="true" />
+            {copy.languageLabel}
+          </button>
+          <a
+            className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/[0.06] text-white/82 transition hover:border-emerald-300/40 hover:text-white"
+            href={profile.github}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub"
+            title="GitHub"
+          >
+            <GitBranch className="h-4 w-4" aria-hidden="true" />
+          </a>
+        </div>
       </nav>
     </header>
   );
 }
 
-function HeroSection() {
+function HeroSection({ copy }: { copy: SiteCopy }) {
   return (
     <section
       id="hero"
@@ -144,7 +263,7 @@ function HeroSection() {
             className="mb-7 inline-flex items-center gap-2 rounded-full border border-emerald-300/20 bg-emerald-300/8 px-3 py-1.5 text-sm text-emerald-100 shadow-[0_0_40px_rgba(52,211,153,0.12)]"
           >
             <Bot className="h-4 w-4" aria-hidden="true" />
-            AI Engineer / LLM Application Developer
+            {copy.hero.role}
           </motion.div>
           <motion.h1
             variants={fadeUp}
@@ -158,18 +277,17 @@ function HeroSection() {
             transition={{ duration: 0.75, ease: "easeOut" }}
             className="mt-6 max-w-2xl text-lg leading-8 text-white/74 sm:text-xl"
           >
-            Building EduAgent and StockAgent, focusing on RAG, Multi-Agent Systems
-            and AI Applications.
+            {copy.hero.intro}
           </motion.p>
           <motion.div
             variants={fadeUp}
             transition={{ duration: 0.75, ease: "easeOut" }}
             className="mt-9 flex flex-col gap-3 sm:flex-row"
           >
-            <PrimaryLink href="#projects">View Projects</PrimaryLink>
+            <PrimaryLink href="#projects">{copy.hero.projectsCta}</PrimaryLink>
             <SecondaryLink href={`mailto:${profile.email}`}>
               <Mail className="h-4 w-4" aria-hidden="true" />
-              Contact
+              {copy.hero.contactCta}
             </SecondaryLink>
           </motion.div>
         </motion.div>
@@ -182,13 +300,13 @@ function HeroSection() {
         >
           <div className="rounded-lg border border-white/10 bg-white/[0.055] p-5 shadow-2xl shadow-black/50 backdrop-blur-2xl">
             <div className="mb-5 flex items-center justify-between">
-              <span className="text-sm text-white/58">Agent Stack</span>
+              <span className="text-sm text-white/58">{copy.hero.stackTitle}</span>
               <span className="rounded-full border border-cyan-200/20 bg-cyan-200/10 px-2.5 py-1 text-xs text-cyan-100">
-                Online
+                {copy.hero.status}
               </span>
             </div>
             <div className="space-y-3">
-              {["RAG Pipeline", "Multi-Agent Graph", "Vector Search"].map((item, index) => (
+              {copy.hero.stackItems.map((item, index) => (
                 <div
                   key={item}
                   className="flex items-center justify-between rounded-lg border border-white/8 bg-black/24 px-4 py-3"
@@ -210,13 +328,13 @@ function HeroSection() {
   );
 }
 
-function ProjectSection() {
+function ProjectSection({ copy, language }: { copy: SiteCopy; language: Language }) {
   return (
     <section id="projects" className="border-t border-white/10 bg-[#050608] py-20 sm:py-24">
       <SectionHeading
-        eyebrow="Projects"
-        title="LLM applications built for real workflows"
-        description="Two focused AI products: one for education, one for financial research."
+        eyebrow={copy.projects.eyebrow}
+        title={copy.projects.title}
+        description={copy.projects.description}
       />
 
       <div className="mx-auto mt-12 grid w-full max-w-6xl gap-5 px-5 sm:px-6 lg:grid-cols-2 lg:px-8">
@@ -240,7 +358,7 @@ function ProjectSection() {
               </div>
               <h3 className="mt-7 text-2xl font-semibold text-white">{project.name}</h3>
               <p className="mt-4 min-h-24 text-base leading-7 text-white/68">
-                {project.description}
+                {project.description[language]}
               </p>
               <div className="mt-6 flex flex-wrap gap-2">
                 {project.stack.map((item) => (
@@ -257,7 +375,7 @@ function ProjectSection() {
                   GitHub
                 </ProjectLink>
                 <ProjectLink href={project.demo} icon={ArrowUpRight}>
-                  Demo
+                  {copy.projects.demo}
                 </ProjectLink>
               </div>
             </motion.article>
@@ -268,13 +386,13 @@ function ProjectSection() {
   );
 }
 
-function SkillsSection() {
+function SkillsSection({ copy }: { copy: SiteCopy }) {
   return (
     <section id="skills" className="bg-[#080a0d] py-20 sm:py-24">
       <SectionHeading
-        eyebrow="Skills"
-        title="AI engineering stack"
-        description="Backend, orchestration, local models, retrieval, and deployment tools."
+        eyebrow={copy.skills.eyebrow}
+        title={copy.skills.title}
+        description={copy.skills.description}
       />
 
       <div className="mx-auto mt-12 grid w-full max-w-6xl grid-cols-2 gap-3 px-5 sm:grid-cols-3 sm:px-6 lg:grid-cols-4 lg:px-8">
@@ -302,7 +420,7 @@ function SkillsSection() {
   );
 }
 
-function ContactSection() {
+function ContactSection({ copy }: { copy: SiteCopy }) {
   return (
     <section id="contact" className="bg-[#050608] px-5 py-20 sm:px-6 sm:py-24 lg:px-8">
       <motion.div
@@ -314,18 +432,17 @@ function ContactSection() {
       >
         <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
-            <p className="text-sm font-medium text-emerald-200">Contact</p>
+            <p className="text-sm font-medium text-emerald-200">{copy.contact.eyebrow}</p>
             <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">
-              Build AI applications with a product mindset.
+              {copy.contact.title}
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-white/64">
-              Open to LLM application development, RAG systems, and agentic workflow
-              engineering.
+              {copy.contact.description}
             </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:w-80 lg:grid-cols-1">
             <ContactLink href={profile.github} icon={GitBranch} label="GitHub" />
-            <ContactLink href={`mailto:${profile.email}`} icon={Mail} label="Email" />
+            <ContactLink href={`mailto:${profile.email}`} icon={Mail} label={copy.contact.email} />
           </div>
         </div>
       </motion.div>

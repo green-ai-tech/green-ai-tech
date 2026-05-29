@@ -5,15 +5,25 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   ArrowUpRight,
+  BookOpen,
   Bot,
+  Brain,
   Code2,
   Cpu,
   Database,
+  Eye,
   GitBranch,
   GraduationCap,
+  Layers3,
   Languages,
   Mail,
+  MessageSquareReply,
+  Mic,
+  MonitorCog,
+  PanelTop,
+  Route,
   Server,
+  Sparkles,
   TrendingUp,
   Workflow,
   type LucideIcon,
@@ -60,18 +70,188 @@ const projects: Array<{
 
 const skills: Array<{ name: string; icon: LucideIcon }> = [
   { name: "Python", icon: Code2 },
+  { name: "PyTorch", icon: Brain },
   { name: "FastAPI", icon: Server },
   { name: "LangChain", icon: Workflow },
   { name: "LangGraph", icon: Bot },
+  { name: "Transformers", icon: Layers3 },
   { name: "PostgreSQL", icon: Database },
+  { name: "ChromaDB", icon: Database },
   { name: "Docker", icon: Cpu },
   { name: "Ollama", icon: Bot },
   { name: "RAG", icon: Workflow },
+  { name: "OpenCV", icon: Eye },
+  { name: "Streamlit", icon: PanelTop },
+];
+
+const learningPath: Array<{
+  step: string;
+  title: Record<Language, string>;
+  description: Record<Language, string>;
+}> = [
+  {
+    step: "01",
+    title: {
+      en: "Foundations",
+      zh: "基础能力",
+    },
+    description: {
+      en: "Python, NumPy, image processing, visualization, and PyTorch fundamentals.",
+      zh: "Python、NumPy、图像处理、可视化和 PyTorch 基础。",
+    },
+  },
+  {
+    step: "02",
+    title: {
+      en: "Deep Learning",
+      zh: "深度学习",
+    },
+    description: {
+      en: "CNN, LeNet5, transfer learning, YOLO fine-tuning, and model training workflows.",
+      zh: "CNN、LeNet5、迁移学习、YOLO 微调和模型训练工作流。",
+    },
+  },
+  {
+    step: "03",
+    title: {
+      en: "Transformer Systems",
+      zh: "Transformer 系统",
+    },
+    description: {
+      en: "Encoder-decoder architecture, self-attention, text classification, and translation.",
+      zh: "Encoder-Decoder、自注意力、文本分类和中英翻译模型。",
+    },
+  },
+  {
+    step: "04",
+    title: {
+      en: "LLM Applications",
+      zh: "大模型应用",
+    },
+    description: {
+      en: "Prompt engineering, tool calling, structured output, RAG, memory, LangGraph, and MCP.",
+      zh: "Prompt、工具调用、结构化输出、RAG、记忆、LangGraph 和 MCP。",
+    },
+  },
+];
+
+const learningModules: Array<{
+  title: string;
+  icon: LucideIcon;
+  description: Record<Language, string>;
+  points: Record<Language, string[]>;
+}> = [
+  {
+    title: "Machine Vision",
+    icon: Eye,
+    description: {
+      en: "A complete computer vision path from cameras and image processing to model training and deployment.",
+      zh: "从摄像头、图像处理到模型训练与部署的完整机器视觉链路。",
+    },
+    points: {
+      en: ["YOLO detection", "Sobel features", "LeNet5 MNIST", "Transfer learning"],
+      zh: ["YOLO 目标检测", "Sobel 特征", "LeNet5 手写数字", "迁移学习"],
+    },
+  },
+  {
+    title: "Speech Recognition",
+    icon: Mic,
+    description: {
+      en: "Audio feature extraction, language recognition, training scripts, and command datasets.",
+      zh: "音频特征提取、语言识别、训练脚本和语音指令数据集。",
+    },
+    points: {
+      en: ["Audio preprocessing", "CNN training", "Language ID", "Command recording"],
+      zh: ["音频预处理", "CNN 训练", "语言识别", "指令录制"],
+    },
+  },
+  {
+    title: "Encoder-Decoder",
+    icon: Layers3,
+    description: {
+      en: "Image autoencoding, transformer text classification, generation, and self-attention fundamentals.",
+      zh: "图像自编码、Transformer 文本分类、内容生成和自注意力机制。",
+    },
+    points: {
+      en: ["Autoencoder", "Word2Vec", "Multi-head attention", "Translation"],
+      zh: ["自编码器", "Word2Vec", "多头注意力", "中英翻译"],
+    },
+  },
+  {
+    title: "LLM Agent",
+    icon: Bot,
+    description: {
+      en: "Agent loops, ReAct reasoning, RAG, memory, streaming, LangGraph orchestration, and multi-agent handoff.",
+      zh: "Agent 循环、ReAct 推理、RAG、记忆、流式输出、LangGraph 编排和多智能体交接。",
+    },
+    points: {
+      en: ["Tool calling", "Structured output", "RAG", "MCP"],
+      zh: ["工具调用", "结构化输出", "RAG", "MCP"],
+    },
+  },
+];
+
+const practiceHighlights: Array<{
+  title: Record<Language, string>;
+  icon: LucideIcon;
+  stack: string[];
+  description: Record<Language, string>;
+  flow: Record<Language, string>;
+}> = [
+  {
+    title: {
+      en: "Voice Control System",
+      zh: "语音控制系统",
+    },
+    icon: MonitorCog,
+    stack: ["PySide6", "CNN", "PyAudio", "pyautogui"],
+    description: {
+      en: "A desktop workflow that records commands, converts audio into Mel spectrograms, runs model inference, and controls the system.",
+      zh: "桌面端语音控制工作流：录音、Mel 频谱图、模型推理，再执行系统操作。",
+    },
+    flow: {
+      en: "Key press -> recording -> Mel spectrogram -> SimpleCNN -> screenshot / mouse / calculator",
+      zh: "按键 -> 录音 -> Mel 频谱图 -> SimpleCNN -> 截屏 / 鼠标 / 计算器",
+    },
+  },
+  {
+    title: {
+      en: "Vectorization Desktop App",
+      zh: "向量化桌面应用",
+    },
+    icon: Database,
+    stack: ["PySide6", "ChromaDB", "Ollama", "PCA"],
+    description: {
+      en: "A dark-mode desktop app for PDF/TXT/MD vectorization, background processing, progress tracking, and PCA visualization.",
+      zh: "暗色桌面应用，支持 PDF/TXT/MD 向量化、后台线程处理、进度追踪和 PCA 可视化。",
+    },
+    flow: {
+      en: "Files -> clean text -> chunks -> Ollama embeddings -> ChromaDB -> PCA",
+      zh: "文件 -> 文本清洗 -> 分块 -> Ollama Embedding -> ChromaDB -> PCA",
+    },
+  },
+  {
+    title: {
+      en: "Email Reply Agent",
+      zh: "邮件回复智能体",
+    },
+    icon: MessageSquareReply,
+    stack: ["LangGraph", "Tool Calling", "RAG", "Interrupt"],
+    description: {
+      en: "A LangGraph workflow that classifies email intent, searches documents or issues, drafts replies, and pauses for human review.",
+      zh: "LangGraph 工作流：邮件意图分类、文档/工单搜索、草稿生成，并通过 interrupt 进入人工审核。",
+    },
+    flow: {
+      en: "Email -> intent -> search / issue -> draft -> human review",
+      zh: "邮件 -> 意图分类 -> 搜索 / 工单 -> 草稿 -> 人工审核",
+    },
+  },
 ];
 
 const content = {
   en: {
     nav: {
+      journey: "Journey",
       projects: "Projects",
       skills: "Skills",
       contact: "Contact",
@@ -81,25 +261,42 @@ const content = {
     hero: {
       role: "AI Engineer / LLM Application Developer",
       intro:
-        "Building EduAgent and StockAgent, focusing on RAG, Multi-Agent Systems and AI Applications.",
+        "Building EduAgent and StockAgent from a hands-on AI learning journey across computer vision, speech, Transformers, RAG, and multi-agent systems.",
       projectsCta: "View Projects",
+      journeyCta: "Learning Journey",
       contactCta: "Contact",
       stackTitle: "Agent Stack",
       status: "Online",
       stackItems: ["RAG Pipeline", "Multi-Agent Graph", "Vector Search"],
     },
+    journey: {
+      eyebrow: "Learning Journey",
+      title: "From fundamentals to production-minded AI applications",
+      description:
+        "A continuously updated path of runnable code, clear notes, and practical thinking from math and deep learning basics to LLM agents.",
+      motto: "Move slowly, move well. Stay curious, patient, and committed to building.",
+    },
+    modules: {
+      eyebrow: "Modules",
+      title: "A broad AI learning map with runnable outputs",
+      description:
+        "The learning repository covers notebooks, scripts, visualizations, and applied demos across model training and LLM application development.",
+    },
     projects: {
       eyebrow: "Projects",
-      title: "LLM applications built for real workflows",
-      description:
-        "Two focused AI products: one for education, one for financial research.",
+      title: "Products and practice projects",
+      description: "Focused products plus hands-on projects that turn notebooks into usable tools.",
       demo: "Demo",
+      practiceEyebrow: "Practice Highlights",
+      practiceTitle: "Engineering demos from the AI learning repo",
+      practiceDescription:
+        "Selected projects show the path from classic AI to agentic LLM workflows.",
     },
     skills: {
       eyebrow: "Skills",
-      title: "AI engineering stack",
+      title: "AI engineering stack across model and product layers",
       description:
-        "Backend, orchestration, local models, retrieval, and deployment tools.",
+        "Python engineering, deep learning, local LLMs, retrieval, workflow orchestration, GUI tools, and web deployment.",
     },
     contact: {
       eyebrow: "Contact",
@@ -111,6 +308,7 @@ const content = {
   },
   zh: {
     nav: {
+      journey: "路线",
       projects: "项目",
       skills: "技能",
       contact: "联系",
@@ -119,23 +317,41 @@ const content = {
     languageLabel: "EN",
     hero: {
       role: "AI 工程师 / LLM 应用开发者",
-      intro: "正在构建 EduAgent 和 StockAgent，专注于 RAG、多智能体系统和 AI 应用落地。",
+      intro:
+        "从机器视觉、语音识别、Transformer、RAG 到多智能体系统，持续构建 EduAgent、StockAgent 和可运行的 AI 应用。",
       projectsCta: "查看项目",
+      journeyCta: "学习路线",
       contactCta: "联系我",
       stackTitle: "智能体栈",
       status: "在线",
       stackItems: ["RAG 流程", "多智能体图", "向量检索"],
     },
+    journey: {
+      eyebrow: "学习路线",
+      title: "从基础能力到工程化 AI 应用",
+      description:
+        "一个持续更新的 AI 学习路径：可运行代码、清晰笔记、从原理到实践的完整思考。",
+      motto: "慢慢来，比较快。保持好奇，保持耐心，保持对世界的热爱。",
+    },
+    modules: {
+      eyebrow: "学习模块",
+      title: "覆盖完整 AI 学习地图，并沉淀可运行产出",
+      description:
+        "学习仓库覆盖 Notebook、训练脚本、可视化结果和实战 Demo，连接模型训练与 LLM 应用开发。",
+    },
     projects: {
       eyebrow: "项目",
-      title: "面向真实工作流的 LLM 应用",
-      description: "两个聚焦明确的 AI 产品：一个面向教育，一个面向金融研究。",
+      title: "产品项目与实战项目",
+      description: "从 Notebook 到可用工具，把学习内容转化为真实可运行的产品原型。",
       demo: "演示",
+      practiceEyebrow: "实战亮点",
+      practiceTitle: "AI 学习仓库中的工程化 Demo",
+      practiceDescription: "精选项目展示从传统 AI 到智能体工作流的实践路径。",
     },
     skills: {
       eyebrow: "技能",
-      title: "AI 工程技术栈",
-      description: "覆盖后端、编排、本地模型、检索增强和部署工具。",
+      title: "覆盖模型层与产品层的 AI 工程技术栈",
+      description: "覆盖 Python 工程、深度学习、本地大模型、检索增强、工作流编排、桌面工具和 Web 部署。",
     },
     contact: {
       eyebrow: "联系",
@@ -169,7 +385,10 @@ export default function Home() {
         onLanguageToggle={toggleLanguage}
       />
       <HeroSection copy={copy} />
+      <LearningJourneySection copy={copy} language={language} />
+      <LearningModulesSection copy={copy} language={language} />
       <ProjectSection copy={copy} language={language} />
+      <PracticeHighlightsSection copy={copy} language={language} />
       <SkillsSection copy={copy} />
       <ContactSection copy={copy} />
     </main>
@@ -195,6 +414,9 @@ function SiteHeader({
           <span className="text-sm font-semibold text-white">Green AI Tech</span>
         </a>
         <div className="hidden items-center gap-6 text-sm text-white/68 sm:flex">
+          <a className="transition hover:text-white" href="#journey">
+            {copy.nav.journey}
+          </a>
           <a className="transition hover:text-white" href="#projects">
             {copy.nav.projects}
           </a>
@@ -285,6 +507,10 @@ function HeroSection({ copy }: { copy: SiteCopy }) {
             className="mt-9 flex flex-col gap-3 sm:flex-row"
           >
             <PrimaryLink href="#projects">{copy.hero.projectsCta}</PrimaryLink>
+            <SecondaryLink href="#journey">
+              <Route className="h-4 w-4" aria-hidden="true" />
+              {copy.hero.journeyCta}
+            </SecondaryLink>
             <SecondaryLink href={`mailto:${profile.email}`}>
               <Mail className="h-4 w-4" aria-hidden="true" />
               {copy.hero.contactCta}
@@ -323,6 +549,126 @@ function HeroSection({ copy }: { copy: SiteCopy }) {
             </div>
           </div>
         </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function LearningJourneySection({
+  copy,
+  language,
+}: {
+  copy: SiteCopy;
+  language: Language;
+}) {
+  return (
+    <section id="journey" className="border-t border-white/10 bg-[#050608] py-20 sm:py-24">
+      <SectionHeading
+        eyebrow={copy.journey.eyebrow}
+        title={copy.journey.title}
+        description={copy.journey.description}
+      />
+
+      <div className="mx-auto mt-12 grid w-full max-w-6xl gap-5 px-5 sm:px-6 lg:grid-cols-[0.72fr_1fr] lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          className="rounded-lg border border-emerald-300/15 bg-emerald-300/[0.045] p-6 backdrop-blur-xl sm:p-7 lg:self-start"
+        >
+          <div className="grid h-12 w-12 place-items-center rounded-lg border border-emerald-300/20 bg-black/24 text-emerald-100">
+            <BookOpen className="h-6 w-6" aria-hidden="true" />
+          </div>
+          <h3 className="mt-6 text-2xl font-semibold text-white">AI Learning Journey</h3>
+          <p className="mt-4 text-base leading-7 text-white/68">{copy.journey.motto}</p>
+          <div className="mt-7 grid gap-3 text-sm text-white/62">
+            <div className="flex items-center gap-3 rounded-lg border border-white/10 bg-black/20 px-4 py-3">
+              <Sparkles className="h-4 w-4 text-emerald-200" aria-hidden="true" />
+              <span>{language === "en" ? "Runnable code and notes" : "可运行代码与学习笔记"}</span>
+            </div>
+            <div className="flex items-center gap-3 rounded-lg border border-white/10 bg-black/20 px-4 py-3">
+              <Workflow className="h-4 w-4 text-cyan-100" aria-hidden="true" />
+              <span>{language === "en" ? "From principles to applications" : "从原理理解到应用实践"}</span>
+            </div>
+          </div>
+        </motion.div>
+
+        <div className="grid gap-3">
+          {learningPath.map((item, index) => (
+            <motion.div
+              key={item.step}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.48, ease: "easeOut", delay: index * 0.05 }}
+              className="grid gap-4 rounded-lg border border-white/10 bg-white/[0.045] p-5 backdrop-blur-xl sm:grid-cols-[4.5rem_1fr] sm:items-start"
+            >
+              <span className="inline-flex h-12 w-16 items-center justify-center rounded-lg border border-white/10 bg-black/28 font-mono text-sm text-emerald-100">
+                {item.step}
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-white">{item.title[language]}</h3>
+                <p className="mt-2 text-sm leading-6 text-white/64">
+                  {item.description[language]}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LearningModulesSection({
+  copy,
+  language,
+}: {
+  copy: SiteCopy;
+  language: Language;
+}) {
+  return (
+    <section className="bg-[#080a0d] py-20 sm:py-24">
+      <SectionHeading
+        eyebrow={copy.modules.eyebrow}
+        title={copy.modules.title}
+        description={copy.modules.description}
+      />
+
+      <div className="mx-auto mt-12 grid w-full max-w-6xl gap-5 px-5 sm:px-6 lg:grid-cols-4 lg:px-8">
+        {learningModules.map((module, index) => {
+          const Icon = module.icon;
+
+          return (
+            <motion.article
+              key={module.title}
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.05 }}
+              className="rounded-lg border border-white/10 bg-white/[0.045] p-5 backdrop-blur-xl transition hover:border-cyan-200/28 hover:bg-white/[0.065]"
+            >
+              <div className="grid h-11 w-11 place-items-center rounded-lg bg-black/28 text-cyan-100">
+                <Icon className="h-5 w-5" aria-hidden="true" />
+              </div>
+              <h3 className="mt-5 text-lg font-semibold text-white">{module.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-white/62">
+                {module.description[language]}
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {module.points[language].map((point) => (
+                  <span
+                    key={point}
+                    className="rounded-full border border-white/10 bg-black/20 px-2.5 py-1 text-xs text-white/66"
+                  >
+                    {point}
+                  </span>
+                ))}
+              </div>
+            </motion.article>
+          );
+        })}
       </div>
     </section>
   );
@@ -377,6 +723,67 @@ function ProjectSection({ copy, language }: { copy: SiteCopy; language: Language
                 <ProjectLink href={project.demo} icon={ArrowUpRight}>
                   {copy.projects.demo}
                 </ProjectLink>
+              </div>
+            </motion.article>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function PracticeHighlightsSection({
+  copy,
+  language,
+}: {
+  copy: SiteCopy;
+  language: Language;
+}) {
+  return (
+    <section className="bg-[#050608] py-20 sm:py-24">
+      <SectionHeading
+        eyebrow={copy.projects.practiceEyebrow}
+        title={copy.projects.practiceTitle}
+        description={copy.projects.practiceDescription}
+      />
+
+      <div className="mx-auto mt-12 grid w-full max-w-6xl gap-5 px-5 sm:px-6 lg:grid-cols-3 lg:px-8">
+        {practiceHighlights.map((project, index) => {
+          const Icon = project.icon;
+
+          return (
+            <motion.article
+              key={project.title.en}
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.06 }}
+              className="rounded-lg border border-white/10 bg-white/[0.055] p-6 shadow-xl shadow-black/24 backdrop-blur-xl transition hover:border-emerald-300/28 hover:bg-white/[0.075]"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div className="grid h-11 w-11 place-items-center rounded-lg border border-white/10 bg-black/28 text-emerald-100">
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <span className="rounded-full border border-white/10 bg-black/24 px-2.5 py-1 text-xs text-white/52">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
+              <h3 className="mt-6 text-xl font-semibold text-white">{project.title[language]}</h3>
+              <p className="mt-3 text-sm leading-6 text-white/64">
+                {project.description[language]}
+              </p>
+              <div className="mt-5 rounded-lg border border-white/10 bg-black/24 p-3 font-mono text-xs leading-5 text-cyan-100/76">
+                {project.flow[language]}
+              </div>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {project.stack.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-white/10 bg-white/[0.055] px-2.5 py-1 text-xs text-white/68"
+                  >
+                    {item}
+                  </span>
+                ))}
               </div>
             </motion.article>
           );

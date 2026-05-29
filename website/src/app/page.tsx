@@ -370,7 +370,7 @@ const fadeUp = {
 };
 
 export default function Home() {
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguage] = useState<Language>("zh");
   const copy = content[language];
 
   const toggleLanguage = () => {

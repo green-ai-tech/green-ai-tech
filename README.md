@@ -1,34 +1,34 @@
 # Green AI Tech
 
-AI Engineer / LLM Application Developer
+AI 工程师 / LLM 应用开发者
 
-Building EduAgent and StockAgent, focusing on RAG, Multi-Agent Systems and AI Applications.
+正在构建 EduAgent 和 StockAgent，专注于 RAG、多智能体系统和 AI 应用落地。
 
-Portfolio: https://green-ai-tech.vercel.app/
+作品集网站：https://green-ai-tech.vercel.app/
 
-## Projects
+## 项目
 
 ### EduAgent
 
-An AI learning assistant for document-grounded tutoring, personalized study flows, and explainable lesson planning.
+面向教育场景的 AI 学习助手，支持基于文档的辅导、个性化学习流程和可解释的课程规划。
 
-Tech stack: Python, FastAPI, LangChain, RAG, PostgreSQL.
+技术栈：Python、FastAPI、LangChain、RAG、PostgreSQL。
 
 ### StockAgent
 
-A market research agent for signal collection, RAG-assisted analysis, and multi-agent financial intelligence workflows.
+面向市场研究的智能体，覆盖信号采集、RAG 辅助分析和多智能体金融研究工作流。
 
-Tech stack: Python, LangGraph, Docker, Ollama, RAG.
+技术栈：Python、LangGraph、Docker、Ollama、RAG。
 
-## Skills
+## 技能
 
-Python, FastAPI, LangChain, LangGraph, PostgreSQL, Docker, Ollama, RAG.
+Python、FastAPI、LangChain、LangGraph、PostgreSQL、Docker、Ollama、RAG。
 
-## Website
+## 网站
 
-The portfolio website is deployed at https://green-ai-tech.vercel.app/.
+作品集网站已部署在：https://green-ai-tech.vercel.app/
 
-Source code lives in [`website`](./website).
+网站源码位于 [`website`](./website)。
 
 ```bash
 cd website
